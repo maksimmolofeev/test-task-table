@@ -2,19 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { collectionsActions } from "../store/collectionsSlice";
 import './Table.css'
 import CellItem from "./CellItem";
+import { useState } from "react";
 
 const Table = () => {
     const dispatch = useDispatch()
 
+    const [optionState, setOptionState] = useState('')
+
     const {dates, tasks, statuses, intersection} = useSelector(state => state.collections)
-    
-    const toggleStatus = (cell, value) => {
-        const newIntersection = JSON.parse(JSON.stringify(intersection))
-        const indStatus = statuses.findIndex(item => item.status === value)
-        const indCell = intersection.findIndex(item => item === cell)
-        newIntersection[indCell].status = statuses[indStatus]
-        dispatch(collectionsActions.changeStatus(newIntersection))
-    }
 
     const changeDate = (e, date) => {
         const newDates = JSON.parse(JSON.stringify(dates))
@@ -28,13 +23,6 @@ const Table = () => {
         const indTask = tasks.findIndex(t => t === task)
         newTasks[indTask].task = e.target.value
         dispatch(collectionsActions.changeTask(newTasks))
-    }
-
-    const changeEvent = (e, cell) => {
-        const newIntersection = JSON.parse(JSON.stringify(intersection))
-        const indCell = intersection.findIndex(c => c === cell)
-        newIntersection[indCell].event = e.target.value
-        dispatch(collectionsActions.changeEvent(newIntersection))
     }
 
     return (
@@ -54,11 +42,7 @@ const Table = () => {
                 </td>
                 {intersection.map(cell =>
                 task.id === cell.task.id ?
-                <CellItem 
-                    cell={cell}
-                    toggleStatus={toggleStatus}
-                    changeEvent={changeEvent}
-                /> :
+                <CellItem cell={cell}/> :
                 null
                 )}
             </tr>

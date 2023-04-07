@@ -33,7 +33,7 @@ const CellItem = ({cell}) => {
                 placeholder="Добавить событие"
             />
             <select onChange={(e) => toggleStatus(cell, e.target.value)} value={optionState} >
-                <option value=''>--статус--</option>
+                <option disabled value=''>--статус--</option>
                 {statuses.map(status => 
                     <option
                         key={nanoid(3)}

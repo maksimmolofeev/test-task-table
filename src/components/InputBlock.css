@@ -1,0 +1,9 @@
+.input_block {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.remove_btn {
+    border: none;
+    background: none;
+}
